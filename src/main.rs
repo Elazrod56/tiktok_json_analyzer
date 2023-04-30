@@ -5,7 +5,7 @@ use std::fs;
 use std::io;
 
 fn main() -> io::Result<()> {
-    // The main function must return a Result<()> if we want to use the '?' operator on lines 13 and 14
+    // The main function must return a Result<()> if we want to use the '?' operator on lines 14 and 15
 
     println!("-------- THE TIKTOK JSON ANALYZER --------");
     println!("This program calculates some statistics using your TikTok JSON data export");
