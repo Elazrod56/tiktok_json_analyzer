@@ -10,9 +10,7 @@ fn main() -> io::Result<()> {
     println!("Please make sure the JSON file is located in json/user_data.json\n");
 
     let file = fs::read_to_string("json/user_data.json")?;
-    let file = file.as_str();
-
-    let data: Value = serde_json::from_str(file)?;
+    let data = serde_json::from_str::<Value>(file.as_str())?;
 
     let username = &data["Profile"]["Profile Information"]["ProfileMap"]["userName"];
     println!("File detected \u{2705} \nThe data of {username} will be analyzed...\n");
@@ -24,6 +22,7 @@ fn main() -> io::Result<()> {
         .as_array()
         .map(|array| array.len())
         .unwrap_or(0);
+
     println!("In the last 6 months, you connected {login_history_len} times to Tiktok");
     println!(
         "You launched TikTok {} times a day on average\n",
@@ -36,6 +35,7 @@ fn main() -> io::Result<()> {
         .as_array()
         .map(|array| array.len())
         .unwrap_or(0);
+
     println!("In the last 6 months, you have watched {watched_videos_len} videos");
     println!(
         "You watched around {} videos a day on average\n",
@@ -49,6 +49,7 @@ fn main() -> io::Result<()> {
         .as_array()
         .map(|array| array.len())
         .unwrap_or(0);
+
     println!("You have {favorite_sounds_len} favorite sounds\n");
 
     let favorite_videos = &data["Activity"]["Favorite Videos"]["FavoriteVideoList"];
@@ -56,6 +57,7 @@ fn main() -> io::Result<()> {
         .as_array()
         .map(|array| array.len())
         .unwrap_or(0);
+
     println!("You have {favorite_videos_len} favorite videos\n");
 
     // Likes
@@ -65,19 +67,28 @@ fn main() -> io::Result<()> {
         .as_array()
         .map(|array| array.len())
         .unwrap_or(0);
+
     let date_of_8000th_liked_vid = &liked_videos[liked_videos_len - 1]["Date"];
     println!("You liked 8000 videos since {date_of_8000th_liked_vid}\n");
 
     // Comments
     println!("\n-------- COMMENTS \u{1F4AC} --------\n");
     let comments = &data["Comment"]["Comments"]["CommentsList"];
-    let comments_len = comments.as_array().map(|array| array.len()).unwrap_or(0);
+    let comments_len = comments
+        .as_array()
+        .map(|array| array.len())
+        .unwrap_or(0);
+
     println!("You published {comments_len} comments\n");
 
     // Videos & likes
     println!("\n-------- YOUR ACCOUNT'S STATS \u{1F464} --------\n");
     let videos = &data["Video"]["Videos"]["VideoList"];
-    let videos_len = videos.as_array().map(|array| array.len()).unwrap_or(0);
+    let videos_len = videos
+        .as_array()
+        .map(|array| array.len())
+        .unwrap_or(0);
+
     let likes = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"];
     println!("You received {likes} likes and you posted {videos_len} videos");
 
