@@ -1,8 +1,10 @@
-use serde_json::Value;
-use std::fs;
 // Github : Elazrod56
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+use serde_json::Value;
+use std::fs;
+use std::io;
+
+fn main() -> io::Result<()> {
     println!("-------- THE TIKTOK JSON ANALYZER --------");
     println!("This program calculates some statistics using your TikTok JSON data export");
     println!("Please make sure the JSON file is located in json/user_data.json\n");
@@ -23,7 +25,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .map(|array| array.len())
         .unwrap_or(0);
     println!("In the last 6 months, you connected {login_history_len} times to Tiktok");
-    println!("You launched TikTok {} times a day on average\n", login_history_len / 183);
+    println!(
+        "You launched TikTok {} times a day on average\n",
+        login_history_len / 183
+    );
 
     // Amount of videos watched
     let watched_videos = &data["Activity"]["Video Browsing History"]["VideoList"];
@@ -32,7 +37,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .map(|array| array.len())
         .unwrap_or(0);
     println!("In the last 6 months, you have watched {watched_videos_len} videos");
-    println!("You watched around {} videos a day on average\n", watched_videos_len / 183);
+    println!(
+        "You watched around {} videos a day on average\n",
+        watched_videos_len / 183
+    );
 
     // Favorites
     println!("\n-------- FAVORITE SOUNDS & VIDEOS \u{1F4FA} --------\n");
@@ -63,19 +71,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Comments
     println!("\n-------- COMMENTS \u{1F4AC} --------\n");
     let comments = &data["Comment"]["Comments"]["CommentsList"];
-    let comments_len = comments
-        .as_array()
-        .map(|array| array.len())
-        .unwrap_or(0);
+    let comments_len = comments.as_array().map(|array| array.len()).unwrap_or(0);
     println!("You published {comments_len} comments\n");
 
     // Videos & likes
     println!("\n-------- YOUR ACCOUNT'S STATS \u{1F464} --------\n");
     let videos = &data["Video"]["Videos"]["VideoList"];
-    let videos_len = videos
-        .as_array()
-        .map(|array| array.len())
-        .unwrap_or(0);
+    let videos_len = videos.as_array().map(|array| array.len()).unwrap_or(0);
     let likes = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"];
     println!("You received {likes} likes and you posted {videos_len} videos");
 
