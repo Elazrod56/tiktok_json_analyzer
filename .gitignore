@@ -1,2 +1,3 @@
 /target
-/json
+/json/user_data.json
+/Cargo.lock
