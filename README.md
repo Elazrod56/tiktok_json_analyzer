@@ -9,6 +9,8 @@ This is a simple program to analyze your TikTok data and provide the following i
 - How many comments have you published
 - Your account's stats (likes received and videos)
 
+This project is still in (very) early development. I will implement new features in the future
+
 ## How to get the data?
 
 Head over to Settings > Account > Get my data and ask for JSON.
