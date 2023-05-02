@@ -2,10 +2,10 @@
 
 This is a simple program to analyze your TikTok data and provide the following info :
 
-- Amount of times you opened the app (last 6 months)
-- The number of videos you watched (last 6 months)
+- Amount of times you opened the app (maximum in the last 6 months)
+- The number of videos you watched (maximum in the last 6 months)
 - How many videos and sounds do you have as favorite
-- How long did it take you to like 8000 videos?
+- How long did it take you to like 8000 videos, and your likes/day stat
 - How many comments have you published
 - Your account's stats (likes received and videos)
 
