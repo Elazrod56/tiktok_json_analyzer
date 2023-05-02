@@ -38,7 +38,7 @@ fn main() -> io::Result<()> {
         .unwrap_or(0);
 
     let first_login_in_the_list = &login_history[login_history_len - 1]["Date"].to_string(); // Note : 'first login'
-                                                                                             // refers to the earliest date which appears in the login history. (the one that's the most in the past)
+     // refers to the earliest date which appears in the login history. (the one that's the most in the past)
 
     let date_of_1st_login = &first_login_in_the_list[1..20];
     // We take only a slice because at the end of the string there is a 'UTC' which prevents the date_to_unix_timestamp

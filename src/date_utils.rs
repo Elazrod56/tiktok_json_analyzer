@@ -14,7 +14,6 @@ fn date_to_unix_timestamp(date_str: &str) -> Option<i64> {
 }
 
 pub fn days_since_date(date_str: &str) -> Option<u64> {
-    // Make the function take two dates as arguments and evaluate the time between those two dates. NO CHATGPT !
     let date = match SystemTime::UNIX_EPOCH
         .checked_add(Duration::from_secs(date_to_unix_timestamp(date_str)? as u64))
     {
