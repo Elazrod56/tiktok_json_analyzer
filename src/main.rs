@@ -101,6 +101,8 @@ fn main() -> io::Result<()> {
         .map(|array| array.len())
         .unwrap_or(0);
 
+    // This section assumes that you have liked a lot of videos. I will adapt this in the future.
+
     let date_of_8000th_liked_vid = &liked_videos[liked_videos_len - 1]["Date"];
     // TikTok only keeps track of your latest 8000 likes. (at least in the data export)
     println!("You liked 8000 videos since {date_of_8000th_liked_vid}\n");
@@ -114,10 +116,7 @@ fn main() -> io::Result<()> {
     // 'date_since_8000th_like'. So, we substract the number of days that passed since you asked for your data.
     // By doing so, we get the number of days that passed since your 8000th like. Hope this was clear enough ;)
 
-    println!(
-        "It took you {} days to like 8000 videos",
-        days_since_8000th_like
-    );
+    println!("It took you {days_since_8000th_like} days to like 8000 videos");
     println!(
         "Meaning that you have liked {} videos a day on average",
         8000 / days_since_8000th_like
@@ -134,9 +133,12 @@ fn main() -> io::Result<()> {
     println!("\n-------- YOUR ACCOUNT'S STATS \u{1F464} --------\n");
     let videos = &data["Video"]["Videos"]["VideoList"];
     let videos_len = videos.as_array().map(|array| array.len()).unwrap_or(0);
+    
+    let likes = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"].as_str().unwrap_or("");
+    let likes_u64 = likes.parse::<u64>().unwrap();
 
-    let likes = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"];
-    println!("You received {likes} likes and you posted {videos_len} videos");
+    println!("You received {} likes and you posted {} videos", likes_u64, videos_len);
+    println!("Meaning that you have received an average of {} likes per video", likes_u64 / videos_len as u64);
 
     Ok(())
 }
