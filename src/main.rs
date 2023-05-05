@@ -38,16 +38,16 @@ fn main() -> io::Result<()> {
         .unwrap_or(0);
 
     let first_login_in_the_list = &login_history[login_history_len - 1]["Date"].to_string(); // Note : 'first login'
-     // refers to the earliest date which appears in the login history. (the one that's the most in the past)
+    // refers to the earliest date which appears in the login history
 
     let date_of_1st_login = &first_login_in_the_list[1..20];
-    // We take only a slice because at the end of the string there is a 'UTC' which prevents the date_to_unix_timestamp
+    // We make a slice because at the end of the string there is a 'UTC' which prevents the date_to_unix_timestamp
     // function in date_utils to correctly interpret the date
 
     let mut days_since_1st_login = date_utils::days_since_date(date_of_1st_login).unwrap();
     days_since_1st_login -= days_since_you_asked_the_data;
 
-    println!("In the last {days_since_1st_login} days, you connected {login_history_len} times to Tiktok");
+    println!("In the last {days_since_1st_login} days, you connected {login_history_len} times to TikTok");
     println!(
         "You launched TikTok {} times a day on average\n",
         login_history_len / days_since_1st_login as usize
@@ -60,7 +60,7 @@ fn main() -> io::Result<()> {
         .map(|array| array.len())
         .unwrap_or(0);
 
-    // The process is almost the same as on lines 38 -> 52
+    // The process is almost the same as on lines 40 -> 48
     let date_of_1st_vid_in_the_list = &watched_videos[watched_videos_len - 1]["Date"].as_str();
 
     let mut days_since_1st_vid =
@@ -101,44 +101,61 @@ fn main() -> io::Result<()> {
         .map(|array| array.len())
         .unwrap_or(0);
 
-    // This section assumes that you have liked a lot of videos. I will adapt this in the future.
-
-    let date_of_8000th_liked_vid = &liked_videos[liked_videos_len - 1]["Date"];
+    let date_of_oldest_like = &liked_videos[liked_videos_len - 1]["Date"];
     // TikTok only keeps track of your latest 8000 likes. (at least in the data export)
-    println!("You liked 8000 videos since {date_of_8000th_liked_vid}\n");
+    // This variable corresponds to the earliest like in the like list
 
-    // How many days between date_of_8000th_liked_vid and the day on which the data was processed ?
-    let mut days_since_8000th_like =
-        date_utils::days_since_date(date_of_8000th_liked_vid.as_str().unwrap()).unwrap();
+    println!("You have liked {} videos since {}", liked_videos_len, date_of_oldest_like);
+    if liked_videos_len == 8000 {
+        println!("Note : The TikTok JSON export only keeps your last 8000 likes. You may have liked more than 8000 videos");
+    }
+
+    // How many days between date_of_oldest_like and the day on which the data was processed ?
+    let mut days_since_oldest_like =
+        date_utils::days_since_date(date_of_oldest_like.as_str().unwrap()).unwrap();
+
     // How many days have passed since your 8000th liked video ?
-    days_since_8000th_like = days_since_8000th_like - days_since_you_asked_the_data;
-    // The variable 'days_since_8000th_like' contains how many days there are between the time you run this and
+    days_since_oldest_like -= days_since_you_asked_the_data;
+    // The variable 'days_since_oldest_like' contains how many days there are between the time you run this and
     // 'date_since_8000th_like'. So, we substract the number of days that passed since you asked for your data.
-    // By doing so, we get the number of days that passed since your 8000th like. Hope this was clear enough ;)
+    // By doing so, we get the number of days that passed since the earliest like in the list.
 
-    println!("It took you {days_since_8000th_like} days to like 8000 videos");
     println!(
-        "Meaning that you have liked {} videos a day on average",
-        8000 / days_since_8000th_like
+        "You have liked {} videos a day on average",
+        liked_videos_len as u64 / days_since_oldest_like
     );
 
     // Comments
     println!("\n-------- COMMENTS \u{1F4AC} --------\n");
     let comments = &data["Comment"]["Comments"]["CommentsList"];
-    let comments_len = comments.as_array().map(|array| array.len()).unwrap_or(0);
+    let comments_len = comments
+        .as_array()
+        .map(|array| array.len())
+        .unwrap_or(0);
 
     println!("You published {comments_len} comments\n");
 
     // Videos & likes
     println!("\n-------- YOUR ACCOUNT'S STATS \u{1F464} --------\n");
     let videos = &data["Video"]["Videos"]["VideoList"];
-    let videos_len = videos.as_array().map(|array| array.len()).unwrap_or(0);
-    
-    let likes = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"].as_str().unwrap_or("");
+    let videos_len = videos
+        .as_array()
+        .map(|array| array.len())
+        .unwrap_or(0);
+
+    let likes = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"]
+        .as_str()
+        .unwrap_or("");
     let likes_u64 = likes.parse::<u64>().unwrap();
 
-    println!("You received {} likes and you posted {} videos", likes_u64, videos_len);
-    println!("Meaning that you have received an average of {} likes per video", likes_u64 / videos_len as u64);
+    println!(
+        "You received {} likes and you posted {} videos",
+        likes_u64, videos_len
+    );
+    println!(
+        "Meaning that you have received an average of {} likes per video",
+        likes_u64 / videos_len as u64
+    );
 
     Ok(())
 }

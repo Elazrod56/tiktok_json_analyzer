@@ -1,5 +1,5 @@
 [package]
-name = "json_tiktok_analyzer"
+name = "tiktok_json_analyzer"
 version = "0.1.0"
 edition = "2021"
 
