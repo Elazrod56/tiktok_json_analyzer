@@ -114,11 +114,10 @@ fn main() -> io::Result<()> {
     let mut days_since_oldest_like =
         date_utils::days_since_date(date_of_oldest_like.as_str().unwrap()).unwrap();
 
-    // How many days have passed since your 8000th liked video ?
+    // How many days have passed since the oldest liked video ?
     days_since_oldest_like -= days_since_you_asked_the_data;
     // The variable 'days_since_oldest_like' contains how many days there are between the time you run this and
-    // 'date_since_8000th_like'. So, we substract the number of days that passed since you asked for your data.
-    // By doing so, we get the number of days that passed since the earliest like in the list.
+    // 'date_since_oldest_like'. So, we substract the number of days that passed since you asked for your data.
 
     println!(
         "You have liked {} videos a day on average",
