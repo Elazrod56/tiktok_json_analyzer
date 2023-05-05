@@ -2,26 +2,35 @@
 
 This is a simple program to analyze your TikTok data and provide the following info :
 
-- Amount of times you opened the app (maximum in the last 6 months)
-- The number of videos you watched (maximum in the last 6 months)
-- How many videos and sounds do you have as favorite
-- How long did it take you to like 8000 videos, and your likes/day stat
+- Amount of times you opened the app (in the last 6 months)
+- The amount of videos you watched (in the last 6 months)
+- How many videos and sounds you have as favorite
+- Statistics about the likes you left on videos, such as the likes/day stat
 - How many comments have you published
 - Your account's stats (likes received and videos)
 
-This project is still in (very) early development. I will implement new features in the future
+This project is still in early development. I will add new features in the future
+
 
 ## How to get the data?
 
-Head over to Settings > Account > Get my data and ask for JSON.
+In your TikTok app, Head over to Settings > Account > Get my data and ask for JSON.
 
 You should get it in the following 4 days.
 
+
 ## How to use it?
 
-Place your file in `json/user_data.json`, then fire up your terminal and run `cargo run`. The code will compile and analyze your data.
+1. Make sure rustc and cargo are installed, check out [this link](https://rust-lang.org) for further information.
 
-Note: You need to have rustc and cargo installed, check out [this link](https://rust-lang.org) for more information.
+2. Then, open your terminal and type `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`
+
+3. A new folder called 'tiktok_json_analyser' will be created, open it in your terminal.
+
+4. Place your file in `json/user_data.json`
+
+5. Finally, fire up your terminal and run `cargo run`. The code will compile and print the stats
+
 
 ## I get an error
 
