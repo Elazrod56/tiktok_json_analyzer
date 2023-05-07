@@ -147,14 +147,54 @@ fn main() -> io::Result<()> {
         .unwrap_or("");
     let likes_u64 = likes.parse::<u64>().unwrap();
 
-    println!(
-        "You received {} likes and you posted {} videos",
-        likes_u64, videos_len
-    );
-    println!(
-        "Meaning that you have received an average of {} likes per video",
-        likes_u64 / videos_len as u64
-    );
+    if videos_len != 0 {
+        println!(
+            "You received {} likes and you posted {} videos",
+            likes_u64, videos_len
+        );
+        println!(
+            "Meaning that you have received an average of {} likes per video",
+            likes_u64 / videos_len as u64
+        );
+    } else {
+        println!("You have received {likes_u64} likes but no videos were found in the data export. \nPerhaps you deleted them ?")
+    }
+    
 
     Ok(())
+}
+
+
+// TESTS
+
+
+#[test]
+fn file_is_readable() {
+    // This function will check if the file is placed in the correct directory and is a JSON file.
+    // Otherwise it will panic
+
+    let file = fs::read_to_string("json/user_data.json");
+    match file {
+        Ok(_) => {
+            println!("File detected and read successfully!");
+        }
+        Err(ref error) => {
+            println!("Error reading file: {:?}", error);
+            panic!("File was not found or there was an error reading it. Make sure it is located in 'json/user_data.json'")
+        }
+        // 'ref' is needed otherwise we get an error on line 190 because 'file' was partially moved
+    }
+}
+
+#[test]
+fn file_is_valid() {
+    // This test is supposed to run after 'file_is_readable' to make sure that the file is TikTok data
+    // Obviously it is not perfect since you could just write ["Activity"] and ["Favorite Effects"]
+    // In a blank JSON file, but seriously, who would do this ?
+
+    let file = fs::read_to_string("json/user_data.json");
+    let data = serde_json::from_str::<Value>(file.unwrap().as_str());
+
+    // When given tags that do not exist, we get "Null". So we verify that some tags are reachable
+    assert_ne!(&data.unwrap()["Activity"]["Favorite Effects"], "Null", "The file doesn't seem to be TikTok data");
 }
