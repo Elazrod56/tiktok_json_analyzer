@@ -107,7 +107,7 @@ fn main() -> io::Result<()> {
 
     println!("You have liked {} videos since {}", liked_videos_len, date_of_oldest_like);
     if liked_videos_len == 8000 {
-        println!("Note : The TikTok JSON export only keeps your last 8000 likes. You may have liked more than 8000 videos");
+        println!("Note : The TikTok data export only keeps track of your last 8000 likes. You may have liked more");
     }
 
     // How many days between date_of_oldest_like and the day on which the data was processed ?
@@ -178,11 +178,10 @@ fn file_is_readable() {
         Ok(_) => {
             println!("File detected and read successfully!");
         }
-        Err(ref error) => {
+        Err(error) => {
             println!("Error reading file: {:?}", error);
             panic!("File was not found or there was an error reading it. Make sure it is located in 'json/user_data.json'")
         }
-        // 'ref' is needed otherwise we get an error on line 190 because 'file' was partially moved
     }
 }
 
