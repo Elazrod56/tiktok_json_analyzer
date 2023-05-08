@@ -142,12 +142,19 @@ fn main() -> io::Result<()> {
         .map(|array| array.len())
         .unwrap_or(0);
 
-    let likes = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"]
-        .as_str()
-        .unwrap_or("");
-    let likes_u64 = likes.parse::<u64>().unwrap();
+    let likes: &Option<&str> = &data["Profile"]["Profile Information"]["ProfileMap"]["likesReceived"].as_str();
 
-    if videos_len != 0 {
+    let likes_u64 = if let Some(likes_str) = *likes {
+        if likes_str == "None" {
+            0
+        } else {
+            likes_str.parse::<u64>().unwrap()
+        }
+    } else {
+        0
+    };
+
+    if videos_len != 0 && likes_u64 != 0  {
         println!(
             "You received {} likes and you posted {} videos",
             likes_u64, videos_len
@@ -156,8 +163,10 @@ fn main() -> io::Result<()> {
             "Meaning that you have received an average of {} likes per video",
             likes_u64 / videos_len as u64
         );
+    } else if likes_u64 != 0 && videos_len == 0 {
+        println!("You have received {likes_u64} likes but no videos were found in the data. You may have deleted old videos.")
     } else {
-        println!("You have received {likes_u64} likes but no videos were found in the data export. \nPerhaps you deleted them ?")
+        println!("No videos nor likes were found in the data. Perhaps you've never posted anything")
     }
     
 
