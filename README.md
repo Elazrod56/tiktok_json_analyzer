@@ -1,38 +1,36 @@
 # The TikTok JSON analyzer
 
-This is a simple program to analyze your TikTok data and provide the following info :
+This is a program to analyze your TikTok data and calculate these statistics :
 
-- Amount of times you opened the app (in the last 6 months)
-- The amount of videos you watched (in the last 6 months)
-- How many videos and sounds you have as favorite
-- Statistics about the likes you left on videos, such as the likes/day stat
-- How many comments have you published
-- Your account's stats (likes received and videos)
+- Number of logins (in the last 6 months) and logins per day
+- Number of videos watched (in the last 6 months) and watched videos per day
+- Number of favorite effects, hashtags, sounds and videos
+- Statistics about the likes you left
+- Number of comments posted
+- Your account's audience stats
 
-This project is still in early development. I will add new features in the future
+This project is still in development.  
+I plan to deploy the app on the web in the future so stay tuned
 
-
-## How to get the data?
+## How to get your TikTok data?
 
 In your TikTok app, Head over to Settings > Account > Get my data and ask for JSON.
 
-You should get it in the following 4 days.
+You should receive a zipped folder containing your data export in the following days
 
-
-## How to use it?
+## How to use the program?
 
 1. Make sure rustc and cargo are installed, check out [this link](https://rust-lang.org) for further information.
 
-2. Then, open your terminal and type `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`
+2. Open your terminal and type `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`
 
 3. A new folder called 'tiktok_json_analyser' will be created, open it in your terminal.
 
-4. Place your file in `json/user_data.json`
+4. Place your TikTok data in `json/` and name it `user_data.json`. Normally it is already named as such
 
 5. Finally, fire up your terminal and run `cargo run`. The code will compile and print the stats
 
-
-## I get an error
+## What if you get an error?
 
 If you get a "no such file or directory error", make sure that "user_data.json" is in the "json" directory.
 
