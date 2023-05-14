@@ -20,21 +20,38 @@ You should receive a zipped folder containing your data export in the following 
 
 ## How to use the program?
 
-1. Make sure rustc and cargo are installed, check out [this link](https://rust-lang.org) for further information.
+You have two options :
 
-2. Open your terminal and type `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`
+1. Compile it yourself :
 
-3. A new folder called 'tiktok_json_analyser' will be created, open it in your terminal.
+    1.1 : Make sure rustc and cargo are installed, check out [this link](https://rust-lang.org) for further information.  
+    1.2 : In your terminal, run `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`  
+    1.3 : A new folder called `tiktok_json_analyser` will be created, open it in your terminal.  
+    1.4 : Place your TikTok data in `json/` and name it `user_data.json`. Normally it is already named as such  
+    1.5 : Finally, in `tiktok_json_analyzer`, run `cargo run`. 
 
-4. Place your TikTok data in `json/` and name it `user_data.json`. Normally it is already named as such
+2. Use the released binaries :
 
-5. Finally, fire up your terminal and run `cargo run`. The code will compile and print the stats
+	2.1 : Go into 'releases' and select the latest version  
+	2.2 : Download the executable for your version  
+	2.3 : Place it in an individual folder  
+	2.4 : Make sure that in the same folder there is a `json` folder containing `user_data.json`  
+	2.5 : Open your terminal  
+	2.6 : On Linux, run `./linux_x64`. *(Note : you might need to make it executable by typing `chmod +x linux_x64`)*  
+	2.7 : On Windows, run `.\windows_x64.exe`  
 
 ## What if you get an error?
 
 If you get a "no such file or directory error", make sure that "user_data.json" is in the "json" directory.
 
 If you get another error, feel free to open an Issue (or a PR if you have a solution)
+
+## Binaries
+
+- The Windows binary was compiled on Windows 11-64bit. It should work on Windows 10 though.  
+- The Linux binary was compiled on Debian WSL2-64bit.
+
+If the binaries do not run on your machine, compile the code yourself.
 
 ## For contributors
 
