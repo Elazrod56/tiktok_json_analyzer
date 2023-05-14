@@ -13,7 +13,7 @@ fn date_to_unix_timestamp(date_str: &str) -> Option<i64> {
     Some(timestamp)
 }
 
-pub fn days_since_date(date_str: &str) -> Option<u64> {
+pub fn days_since_date(date_str: &str) -> Option<usize> {
     let date = match SystemTime::UNIX_EPOCH
         .checked_add(Duration::from_secs(date_to_unix_timestamp(date_str)? as u64))
     {
@@ -27,5 +27,5 @@ pub fn days_since_date(date_str: &str) -> Option<u64> {
     };
 
     let days = duration.as_secs() / (24 * 60 * 60);
-    Some(days)
+    Some(days as usize)
 }
