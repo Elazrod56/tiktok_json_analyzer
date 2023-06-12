@@ -46,6 +46,17 @@ If you get a "no such file or directory error", make sure that "user_data.json" 
 
 If you get another error, feel free to open an Issue (or a PR if you have a solution)
 
+## Binaries
+
+- The Linux binary was compiled on Arch Linux 64-bit with Rust 1.70.0. It should work on any Linux though.
+- The Windows binary was compiled on Windows 11-64bit with Rust 1.69.0. It should work on Windows 10 though.
+
+>NOTE : I don't have access to Windows anymore, so I could not compile the newer version of the program for it.
+The .exe file in Release 1.1 is not up to date and does not implement the DM counting functionality.
+Don't hesitate to compile it with `cargo build --release` and to send it to me, so that I can publish it.
+
+If the binaries do not run on your machine, consider compiling the code yourself.
+
 ## For contributors
 
 If you want to contribute to this project, you can contact me on Discord (elazrod#7500) or open a PR. I'll be happy to collaborate with you.
