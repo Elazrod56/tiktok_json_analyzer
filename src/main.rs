@@ -135,8 +135,31 @@ fn main() -> io::Result<()> {
     println!("You have posted {comments_len} comments\n");
 
 
+    // direct messages
+    println!("\n-------- DIRECT MESSAGES \u{2709} --------\n");
+
+    let chat_history = &data["Direct Messages"]["Chat History"]["ChatHistory"]
+        .as_object()
+        .unwrap(); // this is now a HashMap/dictionnary, with the conversation name as the key and the messages as the value
+        // we can count each message in the
+
+    let mut total_messages: usize = 0;
+
+    for (chat_name, chat_messages) in chat_history.iter() {
+        // we are iterating over each conversation
+
+        let count = chat_messages.as_array().unwrap().len();
+        // how many messages in the current conversation
+
+        total_messages += count;
+
+        println!("Chat with{}  {} messages", &chat_name[17..], count); // taking a slice allows to keep only the username of the person
+    }
+    println!("\nYou have sent a total of {total_messages} messages");
+    
+
     // audience stats of the user
-    println!("\n-------- YOUR AUDIENCE STATISTICS \u{1F464} --------\n");
+    println!("\n-------- AUDIENCE STATISTICS \u{1F464} --------\n");
     let videos = &data["Video"]["Videos"]["VideoList"];
     let videos_len = custom_length(videos);
 
