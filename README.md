@@ -7,10 +7,10 @@ This is a program to analyze your TikTok data and calculate these statistics :
 - Number of favorite effects, hashtags, sounds and videos
 - Statistics about the likes you left
 - Number of comments posted
+- Number of DMs sent
 - Your account's audience stats
 
-This project is still in development.  
-I plan to deploy the app on the web in the future so stay tuned
+I pretty much ran out of ideas for new statistics, but if you have one, share it!
 
 ## How to get your TikTok data?
 
@@ -20,15 +20,25 @@ You should receive a zipped folder containing your data export in the following 
 
 ## How to use the program?
 
-1. Make sure rustc and cargo are installed, check out [this link](https://rust-lang.org) for further information.
+You have two options :
 
-2. Open your terminal and type `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`
+1. Compile it yourself :
 
-3. A new folder called 'tiktok_json_analyser' will be created, open it in your terminal.
+    1.1 : Make sure rustc and cargo are installed, check out [this link](https://rust-lang.org) for further information.  
+    1.2 : In your terminal, run `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`  
+    1.3 : A new folder called `tiktok_json_analyser` will be created, open it in your terminal.  
+    1.4 : Place your TikTok data in `json/` and name it `user_data.json`. Normally it is already named as such  
+    1.5 : Finally, in `tiktok_json_analyzer`, run `cargo run`. 
 
-4. Place your TikTok data in `json/` and name it `user_data.json`. Normally it is already named as such
+2. Use the released binaries :
 
-5. Finally, fire up your terminal and run `cargo run`. The code will compile and print the stats
+	2.1 : Go into 'releases' and select the latest version  
+	2.2 : Download the executable for your version  
+	2.3 : Place it in an individual folder  
+	2.4 : Make sure that in the same folder there is a `json` folder containing `user_data.json`  
+	2.5 : Open your terminal  
+	2.6 : On Linux, run `./linux_x64`. *(Note : you might need to make it executable by typing `chmod +x linux_x64`)*  
+	2.7 : On Windows, run `.\windows_x64.exe`  
 
 ## What if you get an error?
 
@@ -36,6 +46,17 @@ If you get a "no such file or directory error", make sure that "user_data.json" 
 
 If you get another error, feel free to open an Issue (or a PR if you have a solution)
 
+## Binaries
+
+- The Linux binary was compiled on Arch Linux 64-bit with Rust 1.70.0. It should work on any Linux though.
+- The Windows binary was compiled on Windows 11-64bit with Rust 1.69.0. It should work on Windows 10 though.
+
+>NOTE : I don't have access to Windows anymore, so I could not compile the newer version of the program for it.
+The .exe file in Release 1.1 is not up to date and does not implement the DM counting functionality.
+Don't hesitate to compile it with `cargo build --release` and to send it to me, so that I can publish it.
+
+If the binaries do not run on your machine, consider compiling the code yourself.
+
 ## For contributors
 
-If you want to contribute to this project, you can contact me on Discord (Elazrod#7500) or open a PR. I'll be happy to collaborate with you.
+If you want to contribute to this project, you can contact me on Discord (elazrod#7500) or open a PR. I'll be happy to collaborate with you.
