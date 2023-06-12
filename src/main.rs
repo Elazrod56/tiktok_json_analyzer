@@ -26,7 +26,7 @@ fn main() -> io::Result<()> {
         &data["Activity"]["Video Browsing History"]["VideoList"][0]["Date"];
     // the day on which you asked your TikTok data - It is useful later on
     let days_since_you_asked_the_data =
-        date_utils::days_since_date(day_you_asked_the_data.as_str().unwrap()).unwrap();
+        date_utils::days_since_date(day_you_asked_the_data.as_str().unwrap()).unwrap();  
     // how many days have passed between the time you run this and the date of the data export
 
 
