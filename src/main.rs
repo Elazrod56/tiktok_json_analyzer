@@ -5,6 +5,9 @@ use std::fs;
 use std::io;
 mod date_utils;
 
+const AVG_VIDEO_LENGTH: f32 = 27.5;
+// according to sociality.io, the average video length on TikTok is 27.5 seconds.
+
 fn main() -> io::Result<()> {
     // the main function must return a Result<()> if we want to use the '?' operator on lines 18 and 19
 
@@ -67,7 +70,24 @@ fn main() -> io::Result<()> {
     let watched_per_day = watched_videos_len / days_since_1st_vid;
 
     println!("In the last {days_since_1st_vid} days, you have watched {watched_videos_len} videos");
-    println!("You watched an average of {watched_per_day} videos per day \n");
+    println!("You watched an average of {watched_per_day} videos per day\n");
+
+
+    // time per day estimation
+    println!("Since TikTok videos last 27.5 seconds on average, we can estimate the time spent on TikTok every day.");
+    let total_time_in_minutes = (watched_per_day as f32 * AVG_VIDEO_LENGTH) as usize / 60;
+    // we are converting types for precision and readability purposes.
+    // originally the time is in seconds, but we transform it into minutes for simplicity.
+    let hours = total_time_in_minutes / 60;
+    let minutes = total_time_in_minutes % 60;
+    println!("You spend on average {hours} hours and {minutes} minutes on TikTok\n");
+    // motivate the user to progress with their life instead of scrolling mindlessly like a little monkey
+    if hours >= 2 {
+        println!("{hours} hours! Imagine if you'd worked those {hours} hours...\n")
+    }
+    // disclaimer
+    println!("\u{26A0} - This stat is not very precise ! You might spend less time on TikTok, since you're not necessarily watching the whole video each time!");
+    println!("The more you tend not to watch whole videos, the more time you can remove.\n");
 
 
     // favorites
