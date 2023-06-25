@@ -34,13 +34,13 @@ You have two options :
 
 ### Using the released binaries :
 
-	1. Go into 'releases' and select the latest version  
-	2. Download the executable for your version  
-	3. Place it in an individual folder  
-	4. Make sure that in the same folder there is a `json` folder containing the TikTok data (`user_data.json` file)  
-	5. Open your terminal in the executable's folder (not the `json` one)  
-	6. On Linux, run `./tiktok_json_analyzer_linux-x64`. *(note : you might need to make it executable by typing `chmod +x tiktok_json_analyzer_linux-x64`)*  
-	7. On Windows, run `.\tiktok_json_analyzer_windows-x64.exe` *(note : simply double-clicking the executable will not work)*
+	2.1 : Go into 'releases' and select the latest version  
+	2.2 : Download the executable for your version  
+	2.3 : Place it in an individual folder  
+	2.4 : Make sure that in the same folder there is a `json` folder containing `user_data.json`  
+	2.5 : Open your terminal  
+	2.6 : On Linux, run `./tiktok_json_analyzer_linux-x64`. *(note : you might need to make it executable by typing `chmod +x tiktok_json_analyzer_linux-x64`)*  
+	2.7 : On Windows, run `.\tiktok_json_analyzer_win-x64.exe` (make sure to run it in a terminal window! double-clicking the file will open and close a window too rapidly for you to read the output.)  
 
 ## What if you get an error?
 
