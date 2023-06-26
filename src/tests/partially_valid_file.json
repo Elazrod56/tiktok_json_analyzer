@@ -1,0 +1,36 @@
+{
+    "Profile": {
+        "Auto Fill": {
+      "PhoneNumber": "N/A",
+      "Email": "N/A",
+      "FirstName": "N/A",
+      "LastName": "N/A",
+      "Address": "N/A",
+      "ZipCode": "N/A",
+      "Unit": "N/A",
+      "City": "N/A",
+      "State": "N/A",
+      "Country": "N/A"
+    },
+    "Profile Information": {
+      "ProfileMap": {
+        "PlatformInfo": [
+          {
+            "Description": "",
+            "Name": "John Doe",
+            "Platform": "TikTok",
+            "Profile Photo": ""
+          }
+        ],
+        "bioDescription": "This data has been taken from a real TikTok data file and anonymised.",
+        "birthDate": "01-jan-1970",
+        "emailAddress": "None",
+        "likesReceived": "None",
+        "profilePhoto": "None",
+        "profileVideo": "None",
+        "telephoneNumber": "None",
+        "userName": "john.doe"
+      }
+    }
+    }
+}

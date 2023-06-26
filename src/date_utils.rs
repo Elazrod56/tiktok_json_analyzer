@@ -1,5 +1,7 @@
 // date_utils.rs
-// This module contains functions that are useful to calculate the time that passed since a certain date.
+// date_utils.rs is in charge of :
+// - providing functions that help calculate the time (in days) between two dates
+// - these functions are used in lib.rs - for instance they're used when we need to calculate likes/day or videos/day...
 
 use chrono::{NaiveDateTime, TimeZone};
 use std::time::{Duration, SystemTime};
