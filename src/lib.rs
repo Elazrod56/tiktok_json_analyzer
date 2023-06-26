@@ -114,7 +114,7 @@ fn daily_time(watched_per_day: usize) -> String {
     let minutes = total_time_in_minutes % 60;
 
     let result = format!(
-        "You spend on average {} hours and {} minutes on TikTok.",
+        "You've spent on average {} hours and {} minutes on TikTok every day",
         hours, minutes
     );
     result
@@ -191,19 +191,14 @@ fn private_messages(data: &Value) -> HashMap<String, usize> {
         .as_object()
         .unwrap(); // this is now a HashMap/dictionnary, with the conversation name as the key and the messages as the value
 
-    let mut total_messages: usize = 0;
-
     for (chat_name, chat_messages) in chat_history.iter() {
         // we are iterating over each conversation
 
         let count = chat_messages.as_array().unwrap().len();
         // how many messages in the current conversation
 
-        total_messages += count;
-
         result.insert(format!("Chat with{}", &chat_name[17..]), count); // taking a slice allows to keep only the username of the person
     }
-    result.insert(String::from("TOTAL MESSAGES"), total_messages);
 
     result
 }
