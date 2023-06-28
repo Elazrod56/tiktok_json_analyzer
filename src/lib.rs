@@ -22,23 +22,27 @@ pub struct Statistics {
 }
 
 impl Statistics {
-    // -> Result<Statistics, &'static str>
     pub fn build(data: Value) -> Statistics {
+        // Will call all functions from lines 72 to 236 to fill the struct
         let username = String::from(
             &data["Profile"]["Profile Information"]["ProfileMap"]["userName"].to_string(),
-        );
+        ); // We have to convert the &Value object into a String             ^
 
-        let day_of_data_request =
-            &data["Activity"]["Video Browsing History"]["VideoList"][0]["Date"].as_str();
-        let days_since_data_request =
-            date_utils::days_since_date(day_of_data_request.unwrap()).unwrap();
+        let day_of_data_request = &data["Activity"]["Video Browsing History"]["VideoList"][0]
+            ["Date"]
+            .as_str()
+            .unwrap(); // safe to unwrap
+
+        let days_since_data_request = date_utils::days_since_date(day_of_data_request).unwrap();
 
         let watched_per_day = read_videos(days_since_data_request, &data)
             .get("Watched per day")
             .unwrap_or(&0usize)
             .to_owned();
+        // this variable is needed to calculate the time spent on TikTok
+        // since we already have a function that calculates this, we might as well use it
 
-        let statistics = Statistics {
+        Statistics {
             username,
             logins: read_logins(days_since_data_request, &data),
             watched: read_videos(days_since_data_request, &data),
@@ -55,13 +59,16 @@ impl Statistics {
                 .get("Videos published")
                 .unwrap_or(&0usize)
                 .to_owned(),
-        };
-
-        statistics
+        }
     }
 }
 
-// FUNCTIONS WHICH READ DATA
+// Calculates how many elements there are in a JSON category
+fn value_length(input_value: &Value) -> usize {
+    input_value.as_array().map(|a| a.len()).unwrap_or(0)
+}
+
+// The following functions (except the test functions) calculate specific data
 fn read_logins(days_since_data_request: usize, data: &Value) -> HashMap<String, usize> {
     let mut result: HashMap<String, usize> = HashMap::new();
 
@@ -78,7 +85,7 @@ fn read_logins(days_since_data_request: usize, data: &Value) -> HashMap<String, 
     result.insert(String::from("Days since 1st login"), days_since_1st_login);
     result.insert(String::from("Openings"), login_history_len);
     result.insert(
-        String::from("Openings a day"),
+        String::from("Launches per day"),
         login_history_len / days_since_1st_login,
     );
 
@@ -92,9 +99,9 @@ fn read_videos(days_since_data_request: usize, data: &Value) -> HashMap<String, 
 
     let date_of_1st_vid = &watched_videos[watched_videos_len - 1]["Date"].as_str();
 
-    let mut days_since_1st_vid = date_utils::days_since_date(date_of_1st_vid.unwrap()).unwrap();
-    // we need to unwrap twice because as_str() returns an option - also, there was no need to take a slice of
-    // the string, because there was no 'UTC' at the end of it
+    let mut days_since_1st_vid =
+        date_utils::days_since_date(date_of_1st_vid.unwrap()).unwrap_or(0usize);
+    // we need to unwrap twice because as_str() returns an option
     days_since_1st_vid -= days_since_data_request;
 
     let watched_per_day = watched_videos_len / days_since_1st_vid;
@@ -113,10 +120,7 @@ fn daily_time(watched_per_day: usize) -> String {
     let hours = total_time_in_minutes / 60;
     let minutes = total_time_in_minutes % 60;
 
-    let result = format!(
-        "You've spent on average {} hours and {} minutes on TikTok every day",
-        hours, minutes
-    );
+    let result = format!("{} hours and {} minutes", hours, minutes);
     result
 }
 
@@ -197,7 +201,7 @@ fn private_messages(data: &Value) -> HashMap<String, usize> {
         let count = chat_messages.as_array().unwrap().len();
         // how many messages in the current conversation
 
-        result.insert(format!("Chat with{}", &chat_name[17..]), count); // taking a slice allows to keep only the username of the person
+        result.insert(format!("Chat with{}", &chat_name[17..]), count); // taking a slice to keep only the username of the person
     }
 
     result
@@ -228,26 +232,20 @@ fn audience_stats(data: &Value) -> HashMap<String, usize> {
     result
 }
 
-// Calculates how many elements there are in a JSON category
-fn value_length(input_value: &Value) -> usize {
-    input_value.as_array().map(|a| a.len()).unwrap_or(0)
-}
-
 #[cfg(test)]
 mod tests {
     use core::panic;
 
     mod tests_read_file;
 
-    // These functions test what happens in different cases by using file that I made.
-    // There are other functions in main.rs which do the same thing, but with the file json/user_data.json
+    // These functions test what happens in different cases by using files that I made
     // in order to check if the file is readable and valid
 
     #[test]
     #[should_panic(expected = "Error reading the file")]
     fn file_not_found() {
         // this function tests what happens when the file isn't found
-        let file_path = "/path/to/absolutely/no/file.txt";
+        let file_path = "path/to/absolutely/no/file.txt";
         tests_read_file::file_into_str(file_path);
     }
 
