@@ -24,16 +24,13 @@ I will refer to this file as "TikTok data".
 
 You have two options :
 
-### Compiling it yourself :
-
+1. Compiling it yourself
     1. Make sure rustc and cargo are installed - Check out [this link](https://rust-lang.org) for further information.  
     2. In your terminal, run `git clone https://github.com/Elazrod56/tiktok_json_analyzer.git`  
     3. A new folder called `tiktok_json_analyser` will be created, open it in your terminal.  
     4. Place your TikTok data in `json/` and name it `user_data.json`. Normally it is already named as such  
     5. Finally, in `tiktok_json_analyzer`, run `cargo run -r`. You will need to be connected to the internet to download the cargo crates.  
-
-### Using the released binaries :
-
+2. Using the binaries
 	1. Go into 'releases' and select the latest version  
 	2. Download the executable for your version  
 	3. Place it in an individual folder  
@@ -50,8 +47,8 @@ If you get another error, feel free to open an [Issue](https://github.com/Elazro
 
 ## Binaries
 
-- The Linux binary was compiled on Arch Linux 64-bit with Rust 1.70.0. It should work on any 64-bit Linux distro.
-- The Windows binary was cross-compiled on Arch Linux 64-bit, with Rust 1.70.0. It runs on both Windows 10 and 11.
+- The Linux binary was compiled on Arch Linux 64-bit with Rust 1.70.0. It should work on any distribution.
+- The Windows binary was cross-compiled on Arch Linux 64-bit, with Rust 1.70.0. It runs on Windows 10 and 11
 
 If the binaries do not run on your machine, consider compiling the code yourself and [opening an Issue](https://github.com/Elazrod56/tiktok_json_analyzer/issues/new).
 
