@@ -31,7 +31,7 @@ impl Statistics {
         let day_of_data_request = &data["Activity"]["Video Browsing History"]["VideoList"][0]
             ["Date"]
             .as_str()
-            .unwrap(); // safe to unwrap
+            .unwrap();
 
         let days_since_data_request = date_utils::days_since_date(day_of_data_request).unwrap();
 

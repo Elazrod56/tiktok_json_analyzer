@@ -6,8 +6,9 @@
 // - print the data to the console in a user-friendly way
 
 mod read_file;
-use core::panic;
+use std::process;
 
+use serde_json::Value;
 use tiktok_json_analyzer::Statistics;
 
 fn main() {
@@ -18,12 +19,16 @@ fn main() {
     );
 
     let file = read_file::file_into_str("json/user_data.json");
-    println!("\u{2705} File read successfully !\n");
+    println!("\u{2705} File read successfully!");
 
     let data = read_file::str_into_object(file).unwrap_or_else(|err| {
-        eprintln!("Error when converting file into object : {err}");
-        panic!("Error when converting file into object : {err}");
+        eprintln!(
+            "\u{274C} ERROR when converting file into object : {err}\nFile is most likely invalid."
+        );
+        process::exit(2);
     });
+    check_data_validity(&data);
+    println!("\u{2705} Data seems valid!\n");
 
     let statistics = Statistics::build(data);
     println!(
@@ -60,7 +65,7 @@ fn main() {
         "Time wasted on TikTok every day : {} on average",
         statistics.time
     );
-    println!("This stat is not 100% precise!");
+    println!("This stat is not 100% precise! The more you tend to not watch whole videos, the more time you can remove.");
 
     println!("\n---------- FAVORITES \u{1F60D} ----------");
     println!(
@@ -132,4 +137,16 @@ fn main() {
         );
     }
     println!("Note that likes from old videos are still counted.")
+}
+
+fn check_data_validity(data: &Value) {
+    let username = &data["Profile"]["Profile Information"]["ProfileMap"]["userName"];
+    // To check the validity of the file, we are checking if we can find the userName value.
+    // If we can't, then the file is not valid
+    // Obviously we could just copy-paste the "Profile" section of regular data into the file and it would work...
+    // But then we can say that you have tried really hard to make the program fail!
+    if username.as_str() == None {
+        eprintln!("\u{274C} ERROR: File is readable but doesn't seem to be valid data!");
+        process::exit(2);
+    }
 }

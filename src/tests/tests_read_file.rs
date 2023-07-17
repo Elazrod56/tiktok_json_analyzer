@@ -1,12 +1,4 @@
-// tests_read_file.rs - COPY OF src/read_file.rs
-// This is the exact same file as the one in src/read_file.rs
-// Why ? Because this way, the test functions in src/lib.rs can access these functions
-
-// read_file.rs normally is in charge of :
-// - reading the user_data.json file and transform it into a String
-// - transforming the String into a serde_json::Value object
-// the program is exited if there is any kind of error (such as file not found - the most likely to occur)
-// NOT REALLY, THESE FUNCTIONS ARE ONLY USED BY TEST FUNCTIONS
+// these functions are just test functions. they are only there for test-driven development
 
 use serde_json::{Error, Value};
 use std::fs;
